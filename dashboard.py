@@ -175,10 +175,10 @@ while True:
         left_month_count = month_data[month_data['status'] == 'left']['count'].sum()
     
         # Atualizar os cartões no Streamlit com estilo personalizado
-        styled_metric(joined_today_placeholder, "Joined Today", joined_today_count)
-        styled_metric(left_today_placeholder, "Left Today", left_today_count)
-        styled_metric(joined_month_placeholder, "Joined This Month", joined_month_count)
-        styled_metric(left_month_placeholder, "Left This Month", left_month_count)
+        styled_metric(joined_today_placeholder, "Entraram Hoje", joined_today_count)
+        styled_metric(left_today_placeholder, "Saíram Hoje", left_today_count)
+        styled_metric(joined_month_placeholder, "Entraram Esse Mês", joined_month_count)
+        styled_metric(left_month_placeholder, "Saíram Esse Mês", left_month_count)
     
         # Preparar dados para gráficos
         today_data['hour'] = today_data['hour'].dt.hour
@@ -201,7 +201,7 @@ while True:
         # Combinar gráficos de hoje
         fig_today_combined = go.Figure(data=today_joined_chart.data + today_left_chart.data)
         fig_today_combined.update_layout(
-            title='Metrics for Today',
+            title='Métricas de Hoje',
             title_x=0.4,
             xaxis=dict(
                 title='Hour of Day',
@@ -224,7 +224,7 @@ while True:
         # Combinar gráficos do mês
         fig_month_combined = go.Figure(data=month_joined_chart.data + month_left_chart.data)
         fig_month_combined.update_layout(
-            title='Metrics for This Month',
+            title='Métricas Desse Mês',
             title_x=0.4,
             xaxis=dict(
                 title='Day of Month',
