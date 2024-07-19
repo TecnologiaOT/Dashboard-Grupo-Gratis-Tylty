@@ -251,4 +251,4 @@ while True:
         st.error(f"Erro ao buscar ou processar dados: {e}")
 
     # Aguardar 10 segundos antes de atualizar
-    time.sleep(10)
+    time.sleep(300)
