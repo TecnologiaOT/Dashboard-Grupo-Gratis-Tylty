@@ -48,7 +48,6 @@ def fetch_consolidated_data(engine, start_date, end_date):
     df = pd.read_sql(query, engine, params={"start_date": start_date, "end_date": end_date})
     return df
 
-
 def fetch_monthly_data(engine, start_date, end_date):
     query = text(f"""
     SELECT 
@@ -167,11 +166,13 @@ while True:
     try:
         # Dados consolidados para hoje
         today_data = fetch_consolidated_data(engine, start_of_today, end_of_today)
+        st.write("Today Data:", today_data)  # Log dos dados de hoje
         joined_today_count = today_data[today_data['status'] == 'joined']['count'].sum()
         left_today_count = today_data[today_data['status'] == 'left']['count'].sum()
 
         # Dados consolidados para o mês atual
         month_data = fetch_monthly_data(engine, start_of_month, end_of_month)
+        st.write("Month Data:", month_data)  # Log dos dados do mês
         joined_month_count = month_data[month_data['status'] == 'joined']['count'].sum()
         left_month_count = month_data[month_data['status'] == 'left']['count'].sum()
     
@@ -198,7 +199,6 @@ while True:
         month_joined_chart = create_plotly_chart(joined_monthly, 'day', 'count', 'Entraram no grupo Este Mês', '#00c0f0', 'Day of Month', 'Count', 'Entraram no grupo')
         month_left_chart = create_plotly_chart(left_monthly, 'day', 'count', 'Saíram do grupo Este Mês', '#FFA500', 'Day of Month', 'Count', 'Saíram do grupo')
     
-        # Combinar gráficos de hoje
         # Combinar gráficos de hoje
         fig_today_combined = go.Figure(data=today_joined_chart.data + today_left_chart.data)
         fig_today_combined.update_layout(
@@ -248,7 +248,9 @@ while True:
         # Atualizar os gráficos nos placeholders
         today_graph_placeholder.plotly_chart(fig_today_combined, use_container_width=True)
         month_graph_placeholder.plotly_chart(fig_month_combined, use_container_width=True)
+    
     except Exception as e:
         st.error(f"Erro ao buscar ou processar dados: {e}")
+        st.write("Error details:", str(e))
 
     time.sleep(300)
