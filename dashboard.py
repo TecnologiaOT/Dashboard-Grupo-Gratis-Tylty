@@ -181,9 +181,9 @@ while True:
         styled_metric(left_month_placeholder, "Saíram Esse Mês", left_month_count)
     
         # Preparar dados para gráficos
-        today_data['hour'] = today_data['hour'].dt.hour
-        month_data['day'] = month_data['day'].dt.day
-    
+        today_data['hour'] = pd.to_datetime(today_data['hour']).dt.hour
+        month_data['day'] = pd.to_datetime(month_data['day']).dt.day
+        
         joined_today_hourly = today_data[today_data['status'] == 'joined']
         left_today_hourly = today_data[today_data['status'] == 'left']
 
@@ -196,6 +196,8 @@ while True:
     
         month_joined_chart = create_plotly_chart(joined_monthly, 'day', 'count', 'Entraram no grupo Este Mês', '#00c0f0', 'Day of Month', 'Count', 'Entraram no grupo')
         month_left_chart = create_plotly_chart(left_monthly, 'day', 'count', 'Saíram do grupo Este Mês', '#FFA500', 'Day of Month', 'Count', 'Saíram do grupo')
+        
+        
     
         # Combinar gráficos de hoje
         # Combinar gráficos de hoje
