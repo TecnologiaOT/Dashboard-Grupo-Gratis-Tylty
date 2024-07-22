@@ -48,6 +48,7 @@ def fetch_consolidated_data(engine, start_date, end_date):
     df = pd.read_sql(query, engine, params={"start_date": start_date, "end_date": end_date})
     return df
 
+
 def fetch_monthly_data(engine, start_date, end_date):
     query = text(f"""
     SELECT 
